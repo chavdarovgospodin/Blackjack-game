@@ -1,18 +1,30 @@
 import React, { useRef, useEffect } from 'react';
-const logo = require('../../Assets/Images/deck.png');
-
+import { Deck } from '../../Components';
+import images from './images';
 require('./Canvas.scss');
 
+const logo = require('../../Assets/Images/deck.png');
+
+console.log(images);
 const Canvas = () => {
   const canvasRef = useRef(null);
   const deckImage = useRef(null);
 
   const DeckToDraw = (canvas, image, ctx) => {
     image.onload = () => {
-      ctx.drawImage(image, 800, 0, 100, 127);
+      ctx.drawImage(image, 800, 0, 100, 130);
       ctx.font = '20px Courier';
       ctx.fillText('Deck', 820, 20);
     };
+  };
+
+  const HitButton = ctx => {
+    ctx.beginPath();
+    ctx.lineWidth = '4';
+    ctx.rect(845, 575, 60, 40);
+    ctx.font = '20px Courier';
+    ctx.fillText('Hit', 855, 600);
+    ctx.stroke();
   };
 
   useEffect(() => {
@@ -20,8 +32,8 @@ const Canvas = () => {
     const image = deckImage.current;
     const ctx = canvas.getContext('2d');
     DeckToDraw(canvas, image, ctx);
+    HitButton(ctx);
   });
-
   return (
     <div className="canvas">
       <h1>Blackjack</h1>
